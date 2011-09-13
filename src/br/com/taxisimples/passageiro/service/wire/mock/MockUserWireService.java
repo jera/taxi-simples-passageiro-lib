@@ -9,9 +9,8 @@ public class MockUserWireService implements UserWireService {
 
 	@Override
 	public void login(String username, String password) throws LoginFailExceptions {
-		int logou = (int) Math.round(Math.random());
-		switch (logou) {
-		case 0:
+		int logou = (int) Math.round(Math.random()*10);
+		if (logou < 5) {
 			throw new LoginFailExceptions();
 		}
 	}
