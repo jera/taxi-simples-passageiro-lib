@@ -5,7 +5,6 @@ import br.com.taxisimples.passageiro.Ride;
 import br.com.taxisimples.passageiro.TaxiDriver;
 
 public interface TaxiListener {
-
 	void taxiRideCalculated(TaxiFare calculate);
 	void taxiRideStatusReceived(Ride ride);
 	void taxiRideScheduled(Ride ride);
