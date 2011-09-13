@@ -25,6 +25,7 @@ public class PlaceService {
 		if (instance == null) {
 			PlaceWireService wire = (PlaceWireService) TaxiSimplesIoC.lookup(PlaceWireService.class);
 			instance = new PlaceService(wire);
+			wire.setService(instance);
 		}
 		return instance;
 	}
@@ -38,9 +39,7 @@ public class PlaceService {
 	}
 
 	public void addListener(PlaceListener listener) {
-		if (!listeners.contains(listener)) {
-			listeners.add(listener);
-		}
+		listeners.add(listener);
 	}
 
 	public void removeListener(PlaceListener listener) {

@@ -15,15 +15,19 @@ import br.com.taxisimples.passageiro.TaxiDriver;
 import br.com.taxisimples.passageiro.TaxiFare;
 import br.com.taxisimples.passageiro.service.PaymentService;
 import br.com.taxisimples.passageiro.service.TaxiService;
+import br.com.taxisimples.passageiro.service.exceptions.ServiceNotInitializedException;
 import br.com.taxisimples.passageiro.service.wire.TaxiWireService;
 
 public class MockTaxiWireService implements TaxiWireService {
 
-	private TaxiService service = TaxiService.getInstance();
-	private PaymentService paymentService = PaymentService.getInstance();
+	private TaxiService service;
+	private PaymentService paymentService;
 	
 	@Override
 	public void requestTaxiFareCalculate(Route route) {
+		if(service  == null){
+			throw new ServiceNotInitializedException();
+		}
 		TaxiFare fareCalculate = createTaxiFare(route);
 		service.notifyTaxiFareCalculated(fareCalculate);
 	}
@@ -52,6 +56,9 @@ public class MockTaxiWireService implements TaxiWireService {
 
 	@Override
 	public void requestTaxiRide(final Ride ride) {
+		if(paymentService == null || service  == null){
+			throw new ServiceNotInitializedException();
+		}
 		ride.setStatus(RideStatusEnum.WHAIT_FOR_A_CAB);
 		service.notifyTaxiStatusReceived(ride);
 		new Thread(new Runnable() {
@@ -109,4 +116,13 @@ public class MockTaxiWireService implements TaxiWireService {
 		service.notifyTaxiDriverFavorited(driver);
 	}
 
+	public void setService(TaxiService service) {
+		this.service = service;
+	}
+
+	public void setPaymentService(PaymentService paymentService) {
+		this.paymentService = paymentService;
+	}
+	
+	
 }

@@ -26,6 +26,7 @@ public class TaxiService {
 		if (instance==null) {
 			TaxiWireService wire = (TaxiWireService) TaxiSimplesIoC.lookup(TaxiWireService.class);
 			instance = new TaxiService(wire);
+			wire.setService(instance);
 		}
 		return instance;
 	}

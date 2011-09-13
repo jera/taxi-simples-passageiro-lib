@@ -10,8 +10,8 @@ import br.com.taxisimples.passageiro.service.wire.PlaceWireService;
 public class MockPlaceWireService implements PlaceWireService {
 
 	private List<Place> places = new ArrayList<Place>();
-	private PlaceService service = PlaceService.getInstance();
-	
+	private PlaceService service;
+
 	@Override
 	public void createPlace(Place place) {
 		places.add(place);
@@ -21,6 +21,11 @@ public class MockPlaceWireService implements PlaceWireService {
 	@Override
 	public void requestMyPlaces() {
 		service.notifyMyPlacesListed(places);
+	}
+
+	@Override
+	public void setService(PlaceService service) {
+		this.service = service;
 	}
 
 }

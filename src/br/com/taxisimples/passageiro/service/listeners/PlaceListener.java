@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.taxisimples.passageiro.Place;
 
-public interface PlaceListener extends NamedListener {
+public interface PlaceListener {
 
 	void placeCreated(Place place);
 	void myPlacesListed(List<Place> places);
