@@ -2,6 +2,7 @@ package br.com.taxisimples.passageiro.service;
 
 import ioc.TaxiSimplesIoC;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class TaxiService {
 	
 	protected TaxiService(TaxiWireService wire){
 		this.wire=wire;
+		this.listeners = new ArrayList<TaxiListener>();
 	}
 
 	public static synchronized TaxiService getInstance() {
